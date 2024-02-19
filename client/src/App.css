@@ -40,3 +40,30 @@
 .read-the-docs {
   color: #888;
 }
+/* *************** */
+.col {
+  text-align: left;
+  max-width: 700px;
+}
+
+ul {
+  margin: 0px;
+  list-style-type: style hyp;
+}
+
+.unspecified {
+  color: red;
+}
+.box {
+  margin: 20px auto;
+}
+
+h1,
+h2,
+h3 {
+  margin: 10px auto;
+}
+
+img {
+  width: 300px;
+}

@@ -1,3 +1,6 @@
+body {
+  background-color: darkolivegreen;
+}
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -41,29 +44,19 @@
   color: #888;
 }
 /* *************** */
-.col {
-  text-align: left;
-  max-width: 700px;
+
+.quoteButton {
+  background-color: beige;
+  margin: 20px;
 }
 
-ul {
-  margin: 0px;
-  list-style-type: style hyp;
+.quote {
+  background-color: beige;
 }
 
-.unspecified {
-  color: red;
-}
-.box {
-  margin: 20px auto;
-}
-
-h1,
-h2,
-h3 {
-  margin: 10px auto;
-}
-
-img {
-  width: 300px;
+.answerbutton {
+  background-color: beige;
+  width: 100px;
+  border-color: black;
+  margin: 10px;
 }

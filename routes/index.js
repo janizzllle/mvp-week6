@@ -4,8 +4,9 @@ const db = require("../model/helper");
 
 /* GET home page. */
 router.get("/", async function (req, res, next) {
-  res.send({ title: "Express" });
+  // res.send({ title: "Express" });
   // try {
+  //   const result = await db("/character");
   //   res.send(results.data);
   // } catch (err) {
   //   console.log(err.message);

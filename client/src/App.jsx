@@ -4,11 +4,21 @@ import { Route, Routes } from "react-router-dom";
 import { Outlet, Link } from "react-router-dom";
 
 function App() {
-  const [characters, setCharacters] = useState([]);
-  const [characterIds, setCharacterIds] = useState([]);
-  const [quotes, setQuotes] = useState([]);
+  const characters = [
+    {
+      _id: "5cd99d4bde30eff6ebccfe9e",
+      name: "Smeagol",
+    },
+    {
+      _id: "5cd99d4bde30eff6ebccfc15",
+      name: "Legolas",
+    },
+  ];
+  // const [characters, setCharacters] = useState([]);
+  // const [characterIds, setCharacterIds] = useState([]);
+  // const [quotes, setQuotes] = useState([]);
   const [randomQuote, setRandomQuote] = useState("");
-  const [randomId, setRandomId] = useState("5cd99d4bde30eff6ebccfc57");
+  // const [randomId, setRandomId] = useState("5cd99d4bde30eff6ebccfc57");
   const options = {
     // apply a .get method
     method: "GET",
@@ -24,61 +34,33 @@ function App() {
   //
 
   useEffect(() => {
-    getCharacters();
     getQuotes();
   }, []);
 
-  // useEffect(() => {
-  //   getQuotes();
-  // }, []);
-
-  // useEffect(() => {
-  //   getQuotes();
-  // }, [randomId]);
-
-  function randomizeQuote() {
+  function randomizeQuote(quotes) {
     const item = quotes[Math.floor(Math.random() * quotes.length)];
+    // console.log(quotes);
     setRandomQuote(item.dialog);
-    console.log(item.dialog);
   }
 
-  function randomizeCharacter() {
-    const item = characterIds[Math.floor(Math.random() * characterIds.length)];
-    setRandomId(item);
-    console.log(randomId);
+  function getRandomCharacterId() {
+    const item = characters[Math.floor(Math.random() * characters.length)];
+    return item._id;
   }
-
-  //
-  const getCharacters = async () => {
-    try {
-      const result = await fetch(
-        `https://the-one-api.dev/v2/character`,
-        options
-      );
-      const response = await result.json();
-
-      // *********************************************************************
-      console.log(response.docs);
-      setCharacters(response.docs);
-      // *********************************************************************
-
-      setCharacterIds(characters.map((character) => character._id));
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   // Get all Quotes by a certain character
   const getQuotes = async () => {
+    const char_id = getRandomCharacterId();
+
     try {
       const result = await fetch(
         // Create a function to acess the api
-        `https://the-one-api.dev/v2/character/${randomId}/quote`,
+        `https://the-one-api.dev/v2/character/${char_id}/quote`,
         options
       );
-      const response = await result.json();
-      setQuotes(response.docs);
-      // console.log(quotes);
+      const quotes = await result.json();
+
+      randomizeQuote(quotes.docs);
     } catch (error) {
       console.log(error);
     }
@@ -98,8 +80,7 @@ function App() {
       <button
         type="button"
         onClick={(event) => {
-          randomizeQuote();
-          randomizeCharacter();
+          getQuotes();
         }}
         //  onClick={randomize(characterIds)}
         // onClick={randomize(quotes)}

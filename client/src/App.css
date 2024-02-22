@@ -65,9 +65,24 @@
 
 img {
   height: 70px;
+  border-radius: 10px;
+}
+
+.resultimgs {
+  height: 200px;
 }
 
 .solution {
   color: lightgrey;
   margin: 20px;
+}
+
+button {
+  margin: 20px;
+}
+
+.shrikhand-regular {
+  font-family: "Shrikhand", serif;
+  font-weight: 400;
+  font-style: normal;
 }

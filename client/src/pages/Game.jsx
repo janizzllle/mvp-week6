@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 
 export default function Game() {
@@ -73,10 +73,6 @@ export default function Game() {
       name: "Sauron",
     },
   ];
-  // const [characters, setCharacters] = useState([]);
-  // const [characterIds, setCharacterIds] = useState([]);
-  // const [quotes, setQuotes] = useState([]);
-  // const [randomId, setRandomId] = useState("5cd99d4bde30eff6ebccfc57");
 
   const [randomQuote, setRandomQuote] = useState("");
   const [char_id, setChar_id] = useState();
@@ -96,7 +92,6 @@ export default function Game() {
   // ************************************************************************************************
 
   function randomizeQuote(quotes) {
-    console.log(char_id);
     const item = quotes[Math.floor(Math.random() * quotes.length)];
     setRandomQuote(item.dialog);
   }
@@ -112,14 +107,13 @@ export default function Game() {
   const getQuotes = async () => {
     let id = getRandomCharacterId();
     setChar_id(id);
-    console.log(char_id);
     try {
       const result = await fetch(
         // Create a function to acess the api
-        `https://the-one-api.dev/v2/character/${char_id}/quote`,
+        `https://the-one-api.dev/v2/character/${id}/quote`,
         options
       );
-      console.log(char_id);
+      console.log(id);
       const quotes = await result.json();
       randomizeQuote(quotes.docs);
     } catch (error) {
@@ -128,7 +122,6 @@ export default function Game() {
   };
   // ************************************************************************************************
 
-  console.log(char_id);
   // ************************************************************************************************
 
   // Take the players answer, compare it to the solution, and return a number 1 (for correct) and 0 (for wrong)
@@ -143,6 +136,28 @@ export default function Game() {
   // 4. return you win if correct > wrong, return you lose if c < w
   // 5. store this data so that it can be used in "/result"
   const getResult = () => {};
+
+  const characterOptions = useMemo(() => {
+    // I want to find the right one from the list of characters
+    // with the rest of the list, I want to randomize it and get the first 3
+    // then I want to create a new array with the right one and the 3 random ones
+    // and randomize it again
+    // and return it
+    if (!randomQuote) return [];
+    const rightCharacter = characters.find(
+      (character) => character._id === char_id
+    );
+    const restOfCharacters = characters.filter(
+      (character) => character._id !== char_id
+    );
+    const randomCharacters = restOfCharacters
+      .sort(() => 0.5 - Math.random())
+      .slice(0, 3);
+    const allCharacters = [rightCharacter, ...randomCharacters].sort(
+      () => 0.5 - Math.random()
+    );
+    return allCharacters;
+  }, [randomQuote]);
 
   // ************************************************************************************************
 
@@ -161,31 +176,20 @@ export default function Game() {
       <div className="solution">
         solution:
         <div>
-          {characters.map((character) => {
-            if (character._id === char_id) {
-              return character.name;
-            }
-          })}
+          {
+            characters.find((character) => {
+              return character._id === char_id;
+            })?.name
+          }
         </div>
       </div>
       <p>Who said this? Answer here:</p>
       <div>
-        <button className="answerbutton">
-          {characters[Math.floor(Math.random() * characters.length)].name}
-        </button>
-        <button className="answerbutton">
-          {characters[Math.floor(Math.random() * characters.length)].name}
-        </button>
-        <button className="answerbutton">
-          {characters[Math.floor(Math.random() * characters.length)].name}
-        </button>
-        <button className="answerbutton">
-          {characters.map((character) => {
-            if (character._id === char_id) {
-              return character.name;
-            }
-          })}
-        </button>
+        {characterOptions.map((character) => (
+          <button key={character._id} className="answerbutton">
+            {character.name}
+          </button>
+        ))}
       </div>
 
       <button>

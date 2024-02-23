@@ -16,7 +16,7 @@ module.exports = async function db(query) {
       host: DB_HOST || "localhost", // "127.0.0.1",
       user: DB_USER || "jana.burri", // "root"
       password: DB_PASS || "root",
-      database: DB_NAME || "",
+      database: DB_NAME || "lotr_game",
       multipleStatements: true,
     });
 

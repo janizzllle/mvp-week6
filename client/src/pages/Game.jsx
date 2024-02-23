@@ -10,11 +10,11 @@ export default function Game() {
     },
     {
       _id: "5cd99d4bde30eff6ebccfc15",
-      name: "Frodo Baggins",
+      name: "Frodo",
     },
     {
       _id: "5cd99d4bde30eff6ebccfd0d",
-      name: "Samwise Gamgee",
+      name: "Sam",
     },
     {
       _id: "5cd99d4bde30eff6ebccfe7f",
@@ -26,7 +26,7 @@ export default function Game() {
     },
     {
       _id: "5cd99d4bde30eff6ebccfc38",
-      name: "Bilbo Baggins",
+      name: "Bilbo",
     },
     {
       _id: "5cd99d4bde30eff6ebccfbe6",
@@ -76,6 +76,15 @@ export default function Game() {
 
   const [randomQuote, setRandomQuote] = useState("");
   const [char_id, setChar_id] = useState();
+  const [count, setCount] = useState(-4);
+  const [newItem, setNewItem] = useState({
+    q1: 0,
+    q2: 0,
+    q3: 0,
+    q4: 0,
+    q5: 0,
+  });
+
   const options = {
     // apply a .get method
     method: "GET",
@@ -90,6 +99,10 @@ export default function Game() {
     getQuotes();
   }, []);
   // ************************************************************************************************
+  useEffect(() => {
+    getQuotes();
+  }, [newItem]);
+  // ************************************************************************************************
 
   function randomizeQuote(quotes) {
     const item = quotes[Math.floor(Math.random() * quotes.length)];
@@ -102,9 +115,9 @@ export default function Game() {
     return item._id;
   }
   // ************************************************************************************************
-
   // Get all Quotes by a certain character
   const getQuotes = async () => {
+    setCount((state) => state + 1);
     let id = getRandomCharacterId();
     setChar_id(id);
     try {
@@ -120,9 +133,6 @@ export default function Game() {
     }
   };
   // ************************************************************************************************
-
-  // ************************************************************************************************
-
   // Take the players answer, compare it to the solution, and return a number 1 (for correct) and 0 (for wrong)
   // store this in the database
 
@@ -134,7 +144,6 @@ export default function Game() {
   // 4. When the game ends, compare amount of corrects to amount of wrongs
   // 4. return you win if correct > wrong, return you lose if c < w
   // 5. store this data so that it can be used in "/result"
-  const getResult = () => {};
 
   // useMemo (variable that gets computed from other state)
   // difference to useState?
@@ -176,24 +185,52 @@ export default function Game() {
     if (answer === rightCharacter.name) {
       const result = 1;
       console.log(result);
-      // addAnswerToDB(result);
+      updateResult(result);
     } else {
       const result = 0;
       console.log(result);
-      // addAnswerToDB(result);
+      updateResult(result);
     }
   }
+
+  function updateResult(result) {
+    if (count >= 0) {
+      if (count === 0) {
+        setNewItem((state) => ({ ...state, q1: result }));
+      }
+      if (count === 1) {
+        setNewItem((state) => ({ ...state, q2: result }));
+      }
+      if (count === 2) {
+        setNewItem((state) => ({ ...state, q3: result }));
+      }
+      if (count === 3) {
+        setNewItem((state) => ({ ...state, q4: result }));
+      }
+
+      if (count === 4) {
+        setNewItem((state) => ({ ...state, q5: result }));
+        addAnswerToDB();
+      }
+    }
+  }
+
   // ************************************************************************************************
   const addAnswerToDB = async (result) => {
-    // const response = await fetch(`/api/capitals/${project.capital_id}????????????????????????????????????????????`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(newComment),
-    // });
-
     try {
+      // the fetch(`/api/games/` means that
+      // we are sending the {method: "POST"...}-stuff
+      // to the route /api/games/
+      const response = await fetch(`/api/games/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newItem),
+      });
+
+      const data = await response.json();
+      console.log(data);
     } catch (err) {
       console.log(err.message);
     }
@@ -202,24 +239,10 @@ export default function Game() {
 
   return (
     <>
-      <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/3e0547c2-467a-4b92-a2fd-a014af686793/dail067-5778fe13-d603-43d3-8b6f-e205b8210f17.png/v1/fill/w_1600,h_550/lord_of_the_rings_png_title_by_workfromhomegal_dail067-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NTUwIiwicGF0aCI6IlwvZlwvM2UwNTQ3YzItNDY3YS00YjkyLWEyZmQtYTAxNGFmNjg2NzkzXC9kYWlsMDY3LTU3NzhmZTEzLWQ2MDMtNDNkMy04YjZmLWUyMDViODIxMGYxNy5wbmciLCJ3aWR0aCI6Ijw9MTYwMCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.owJhwZy6_k11SCutQOVR_GX3AG_e8r-8BPxZkj7DpKk"></img>
-      <div></div>
-      <button type="button" onClick={getQuotes} className="quoteButton">
-        New Quote
-      </button>
-      {randomQuote && <p className="quote">{randomQuote}</p>}
-
-      {/* <div className="solution">
-        solution:
-        <div>
-          {
-            characters.find((character) => {
-              return character._id === char_id;
-            })?.name
-          }
-        </div>
-      </div> */}
-      <p>Who said this? Answer here:</p>
+      <div className="quoteBox bad-script-regular">
+        {randomQuote && <p>{randomQuote}</p>}
+      </div>
+      <h5 className="questionbox">Who said this? Answer here:</h5>
       <div>
         {characterOptions.map((character) => (
           <button
@@ -232,9 +255,17 @@ export default function Game() {
         ))}
       </div>
 
-      <button>
-        <Link to="/Result">End game</Link>
+      <button type="button" onClick={getQuotes} className="quoteButton">
+        New Quote
       </button>
+      {/* <div className="solution">The count is {count}</div> */}
+
+      <div>
+        {" "}
+        <button className="next-button">
+          <Link to="/Result">End game</Link>
+        </button>
+      </div>
 
       {/* <button>
         {" "}

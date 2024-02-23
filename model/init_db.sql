@@ -4,7 +4,7 @@ DROP TABLE if exists game;
 DROP TABLE if exists user;
 SET foreign_key_checks = 1;
 
-CREATE TABLE `game`(
+CREATE TABLE `games`(
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `Q1` TINYINT NOT NULL,
     `Q2` TINYINT NOT NULL,

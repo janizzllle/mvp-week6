@@ -184,20 +184,20 @@ export default function Game() {
     }
   }
   // ************************************************************************************************
-  // const addAnswerToDB = async (result) => {
-  //   // const response = await fetch(`/api/capitals/${project.capital_id}????????????????????????????????????????????`, {
-  //   //   method: "POST",
-  //   //   headers: {
-  //   //     "Content-Type": "application/json",
-  //   //   },
-  //   //   body: JSON.stringify(newComment),
-  //   // });
+  const addAnswerToDB = async (result) => {
+    // const response = await fetch(`/api/capitals/${project.capital_id}????????????????????????????????????????????`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(newComment),
+    // });
 
-  //   try {
-  //   } catch (err) {
-  //     console.log(err.message);
-  //   }
-  // };
+    try {
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
   // ************************************************************************************************
 
   return (

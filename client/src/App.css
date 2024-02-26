@@ -42,7 +42,7 @@
 }
 /* *************** */
 
-.quoteButton {
+button {
   background-color: beige;
   margin: 20px;
   border: 1px solid grey;
@@ -69,6 +69,11 @@
   width: 100px;
   border-color: black;
   margin: 10px;
+}
+
+.disabled {
+  background-color: lightgrey;
+  font: grey;
 }
 
 .introtext {

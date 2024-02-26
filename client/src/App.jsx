@@ -11,6 +11,9 @@ import YouWin from "./pages/YouWin";
 import YouLose from "./pages/YouLose";
 
 function App() {
+  const [id, setId] = useState();
+  const [result, setResult] = useState();
+
   return (
     <>
       <img

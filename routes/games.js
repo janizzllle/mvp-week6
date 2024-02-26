@@ -19,7 +19,29 @@ router.get("/", async function (req, res, next) {
   //   .catch((err) => res.status(500).send(err));
 });
 
-// the "/" in line 19 means, that I access my back-end at "/"" (which btw stand for "/api/games" as defined in app.js in line 17),
+router.get("/:id", async function (req, res, next) {
+  try {
+    const id = req.params.id;
+    const response = await db(`SELECT * FROM games WHERE id = ${id};`);
+    res.send(response.data);
+  } catch (err) {
+    console.log(err.message);
+  }
+});
+
+router.get("/:id/sum", async function (req, res) {
+  try {
+    const id = req.params.id;
+    const response = await db(
+      `select sum(q1 + q2 + q3 + q4 + q5) total from games where id = ${id};`
+    );
+    res.send(response.data);
+  } catch (err) {
+    console.timeLog(err.message);
+  }
+});
+
+// the "/" below means, that I access my back-end at "/" (which btw stand for "/api/games" as defined in app.js in line 17),
 router.post("/", async function (req, res, next) {
   try {
     const { q1, q2, q3, q4, q5 } = req.body; // VERY IMPORTANT: req.body is what gets sent from my front-end via (method: "x" ....) to my backend!
@@ -34,6 +56,21 @@ router.post("/", async function (req, res, next) {
     res.send(results.data);
   } catch (err) {
     res.status(500).send(err.message);
+  }
+});
+
+// ???????????
+router.put("/:id/:game_total", async (req, res) => {
+  try {
+    const { id, game_total } = req.params;
+
+    await db(`UPDATE games SET game_total = ${total} WHERE id = ${id};`);
+
+    const results = await db("SELECT * FROM games ORDER BY id ASC;");
+
+    res.send(results.data);
+  } catch (err) {
+    res.status(500).send(err);
   }
 });
 

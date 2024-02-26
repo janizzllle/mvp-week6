@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function YouWin() {
   return (
     <>
-      <h1 className="shrikhand-regular">You win!</h1>
+      <h1 className="shrikhand-regular">you win!</h1>
       <p>Now grab the ring an run! </p>
       <img
         className="resultimgs"

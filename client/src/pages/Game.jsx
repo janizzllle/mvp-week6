@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
+import YouLose from "./YouLose";
 
 export default function Game() {
   const characters = [
@@ -106,6 +107,8 @@ export default function Game() {
 
   function randomizeQuote(quotes) {
     const item = quotes[Math.floor(Math.random() * quotes.length)];
+
+    console.log(quotes);
     setRandomQuote(item.dialog);
   }
   // ************************************************************************************************
@@ -242,37 +245,30 @@ export default function Game() {
       <div className="quoteBox bad-script-regular">
         {randomQuote && <p>{randomQuote}</p>}
       </div>
+
       <h5 className="questionbox">Who said this? Answer here:</h5>
       <div>
         {characterOptions.map((character) => (
           <button
             key={character._id}
-            className="answerbutton"
+            className={count < 5 ? "answerbutton" : "disabled"}
             onClick={storeAnswer}
+            disabled={count > 5 ? true : false}
           >
             {character.name}
           </button>
         ))}
       </div>
-
-      <button type="button" onClick={getQuotes} className="quoteButton">
-        New Quote
-      </button>
-      {/* <div className="solution">The count is {count}</div> */}
-
+      <div className="solution">The count is {count}</div>
       <div>
-        {" "}
-        <button className="next-button">
-          <Link to="/Result">End game</Link>
-        </button>
+        {count < 5 ? (
+          ""
+        ) : (
+          <button>
+            <Link to="/Result">End game</Link>
+          </button>
+        )}
       </div>
-
-      {/* <button>
-        {" "}
-        <Link to="/nextquestion">Next Question</Link>
-      </button>
-
-      */}
     </>
   );
 }

@@ -6,11 +6,18 @@ export default function Home() {
     <>
       <div>
         <h1 className="shrikhand-regular">So you know LOTR by heart? </h1>
-        <p className="introtext">
+
+        <div className="introtext">
           By answering all the questions in this game you can prove your
           extential LOTR knowledge once and for all!
-        </p>
-        <p className="introtext">Click on the button below to start a game</p>
+        </div>
+        <br />
+        <div>Instructions:</div>
+
+        <br />
+        <div className="introtext">
+          Click on the button below to start a game
+        </div>
       </div>
       <button>
         <Link to="/Game">Play!</Link>

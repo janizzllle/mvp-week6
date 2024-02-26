@@ -34,9 +34,7 @@ export default function Result() {
 
   return (
     <>
-      <h3 className="shrikhand-regular">
-        You got {result} correct answers! This means
-      </h3>
+      <h3 className="shrikhand-regular">You got {result} correct answers</h3>
 
       {result > 3 ? <YouWin /> : <YouLose />}
 

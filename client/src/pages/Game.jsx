@@ -257,11 +257,20 @@ export default function Game() {
         {count < 5 ? (
           ""
         ) : (
-          <button>
-            <Link to="/Result">End game</Link>
-          </button>
+          <div>
+            {" "}
+            <h2 className="shrikhand-regular">
+              You have reached the end of the game
+            </h2>
+            <div>
+              <button>
+                <Link to="/Result">Show results</Link>
+              </button>
+            </div>
+          </div>
         )}
       </div>
+      <div className="shrikhand-regular footer-right">Q{count}/5</div>
     </>
   );
 }

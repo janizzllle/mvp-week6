@@ -29,6 +29,12 @@ function App() {
         <Route path="/youlose" element={<YouLose />} />
         <Route path="/*" element={<Page404 />} />
       </Routes>
+      <footer>
+        Coded by{" "}
+        <a href="https://github.com/janizzllle" target="_blank">
+          janizzllle
+        </a>
+      </footer>
     </>
   );
 }

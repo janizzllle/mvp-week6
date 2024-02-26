@@ -89,6 +89,7 @@ button {
 .resultimgs {
   height: 200px;
   border-radius: 10px;
+  margin: 20px;
 }
 
 .solution {
@@ -117,4 +118,16 @@ p {
   left: 50px;
   top: 50px;
   height: 100px;
+}
+
+footer {
+  position: absolute;
+  bottom: 50px;
+  left: 50px;
+}
+
+.footer-right {
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
 }

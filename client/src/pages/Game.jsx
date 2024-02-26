@@ -77,7 +77,7 @@ export default function Game() {
 
   const [randomQuote, setRandomQuote] = useState("");
   const [char_id, setChar_id] = useState();
-  const [count, setCount] = useState(-4);
+  const [count, setCount] = useState(0);
   const [newItem, setNewItem] = useState({
     q1: 0,
     q2: 0,
@@ -95,10 +95,7 @@ export default function Game() {
       Authorization: "Bearer Ss9eAfLed8eq6cMUKKf8",
     },
   };
-  // ************************************************************************************************
-  useEffect(() => {
-    getQuotes();
-  }, []);
+
   // ************************************************************************************************
   useEffect(() => {
     getQuotes();
@@ -107,8 +104,8 @@ export default function Game() {
 
   function randomizeQuote(quotes) {
     const item = quotes[Math.floor(Math.random() * quotes.length)];
+    console.log("randomizeQuote", { quotes, item });
 
-    console.log(quotes);
     setRandomQuote(item.dialog);
   }
   // ************************************************************************************************
@@ -120,7 +117,6 @@ export default function Game() {
   // ************************************************************************************************
   // Get all Quotes by a certain character
   const getQuotes = async () => {
-    setCount((state) => state + 1);
     let id = getRandomCharacterId();
     setChar_id(id);
     try {
@@ -175,7 +171,6 @@ export default function Game() {
   // ************************************************************************************************
 
   function storeAnswer(event) {
-    event.preventDefault();
     const answer = event.target.textContent;
     compareToSolution(answer);
   }
@@ -197,25 +192,23 @@ export default function Game() {
   }
 
   function updateResult(result) {
-    if (count >= 0) {
-      if (count === 0) {
-        setNewItem((state) => ({ ...state, q1: result }));
-      }
-      if (count === 1) {
-        setNewItem((state) => ({ ...state, q2: result }));
-      }
-      if (count === 2) {
-        setNewItem((state) => ({ ...state, q3: result }));
-      }
-      if (count === 3) {
-        setNewItem((state) => ({ ...state, q4: result }));
-      }
-
-      if (count === 4) {
-        setNewItem((state) => ({ ...state, q5: result }));
-        addAnswerToDB();
-      }
+    if (count === 0) {
+      setNewItem((state) => ({ ...state, q1: result }));
     }
+    if (count === 1) {
+      setNewItem((state) => ({ ...state, q2: result }));
+    }
+    if (count === 2) {
+      setNewItem((state) => ({ ...state, q3: result }));
+    }
+    if (count === 3) {
+      setNewItem((state) => ({ ...state, q4: result }));
+    }
+    if (count === 4) {
+      setNewItem((state) => ({ ...state, q5: result }));
+      addAnswerToDB();
+    }
+    setCount((count) => count + 1);
   }
 
   // ************************************************************************************************

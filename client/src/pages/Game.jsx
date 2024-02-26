@@ -235,32 +235,35 @@ export default function Game() {
 
   return (
     <>
-      <div className="quoteBox bad-script-regular">
-        {randomQuote && <p>{randomQuote}</p>}
-      </div>
-
-      <h5 className="questionbox">Who said this? Answer here:</h5>
-      <div>
-        {characterOptions.map((character) => (
-          <button
-            key={character._id}
-            className={count < 5 ? "answerbutton" : "disabled"}
-            onClick={storeAnswer}
-            disabled={count > 5 ? true : false}
-          >
-            {character.name}
-          </button>
-        ))}
-      </div>
-      <div className="solution">The count is {count}</div>
+      {/* <div className="solution">The count is {count}</div> */}
       <div>
         {count < 5 ? (
-          ""
-        ) : (
           <div>
+            <div className="quoteBox bad-script-regular">
+              {randomQuote && <p>{randomQuote}</p>}
+            </div>
+
+            <h5 className="questionbox">Who said this? Answer here:</h5>
+            <div>
+              {characterOptions.map((character) => (
+                <button
+                  key={character._id}
+                  className={count < 5 ? "answerbutton" : "disabled"}
+                  onClick={storeAnswer}
+                  disabled={count > 5 ? true : false}
+                >
+                  {character.name}
+                </button>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="end-of-game-message">
             {" "}
             <h2 className="shrikhand-regular">
-              You have reached the end of the game
+              You have reached
+              <br />
+              the end of this journey
             </h2>
             <div>
               <button>
@@ -270,7 +273,7 @@ export default function Game() {
           </div>
         )}
       </div>
-      <div className="shrikhand-regular footer-right">Q{count}/5</div>
+      <div className="shrikhand-regular footer-right">Quote {count}/5</div>
     </>
   );
 }

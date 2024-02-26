@@ -1,8 +1,27 @@
+@media screen and (min-width: 1px) {
+  .quoteBox {
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    width: 1000px;
+  }
+}
+@media screen and (min-width: 850px) {
+  .quoteBox {
+    font-size: 40px;
+    height: 300px;
+    width: 1000px;
+  }
+}
+
 #root {
   max-width: 1280px;
-  margin: 0 auto;
+  margin: 10% auto 80% auto;
   padding: 2rem;
   text-align: center;
+  z-index: 2;
 }
 
 .logo {
@@ -49,14 +68,8 @@ button {
 }
 
 .quoteBox {
-  /* background-color: beige; */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 200px;
-  /* border: 1px solid grey; */
-  width: 500px;
-  font-size: 25px;
+  /* font-size: 25px; */
+  padding: 10px;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
@@ -77,17 +90,11 @@ button {
 }
 
 .introtext {
-  /* width: 400px; */
   text-align: center;
 }
 
-/* img {
-  height: 70px;
-  border-radius: 10px; 
-} */
-
 .resultimgs {
-  height: 200px;
+  height: 250px;
   border-radius: 10px;
   margin: 20px;
 }
@@ -124,10 +131,34 @@ footer {
   position: absolute;
   bottom: 50px;
   left: 50px;
+  color: grey;
 }
 
 .footer-right {
   position: absolute;
   bottom: 50px;
   right: 50px;
+  color: #fcbf00;
+}
+
+.instructions {
+  text-align: left;
+  padding-left: 30%;
+}
+
+.footer-img {
+  position: fixed;
+  bottom: 10px;
+  left: 0px;
+  width: 100%;
+  opacity: 90%;
+  z-index: -1;
+}
+
+container {
+  z-index: 1;
+}
+
+.end-of-game-message {
+  padding-top: 150px;
 }

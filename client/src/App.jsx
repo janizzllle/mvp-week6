@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 function App() {
   return (
     <>
-      <container>
+      <div>
         <Link to="/">
           <img className="header-img" src={header_logo}></img>
         </Link>
@@ -34,7 +34,7 @@ function App() {
             janizzllle
           </a>
         </footer>
-      </container>
+      </div>
       <img
         className="footer-img"
         src="https://www.theonering.net/torwp/wp-content/themes/The-One-Ring-2020/img/footer-bg-fellowship.svg"

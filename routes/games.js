@@ -41,6 +41,16 @@ router.get("/:id/sum", async function (req, res) {
   }
 });
 
+router.get("/:id/:q", async function (req, res) {
+  try {
+    const { id, q } = req.params;
+    const response = await db(`select q${q}  from games where id = ${id};`);
+    res.send(response.data);
+  } catch (err) {
+    console.timeLog(err.message);
+  }
+});
+
 // the "/" below means, that I access my back-end at "/" (which btw stand for "/api/games" as defined in app.js in line 17),
 router.post("/", async function (req, res, next) {
   try {

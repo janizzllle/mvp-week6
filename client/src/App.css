@@ -1,12 +1,17 @@
 @media screen and (min-width: 1px) {
   .quoteBox {
-    font-size: 25px;
+    font-size: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 300px;
-    width: 1000px;
+    height: 200px;
+    width: 500px;
   }
+  /* .home-scale {
+    font-size: 12px;
+    height: 5px;
+    width: 500px;
+  } */
 }
 @media screen and (min-width: 850px) {
   .quoteBox {
@@ -14,17 +19,36 @@
     height: 300px;
     width: 1000px;
   }
+  /*
+  .home-scale {
+    font-size: 14px;
+    height: 10px;
+    width: 1000px;
+  } */
+}
+
+@media screen and (min-width: 1280px) {
+  .quoteBox {
+    font-size: 40px;
+    height: 300px;
+    width: 1000px;
+  }
+  /* .home-scale {
+    font-size: 10px;
+    height: 100px;
+    width: 1000px;
+  } */
 }
 
 #root {
   max-width: 1280px;
-  margin: 10% auto 80% auto;
+  margin: 7% auto auto auto;
   padding: 2rem;
   text-align: center;
   z-index: 2;
 }
 
-.logo {
+/* .logo {
   height: 6em;
   padding: 1.5em;
   will-change: filter;
@@ -58,8 +82,12 @@
 
 .read-the-docs {
   color: #888;
-}
+} */
 /* *************** */
+
+p {
+  margin: 0px;
+}
 
 button {
   background-color: beige;
@@ -67,8 +95,23 @@ button {
   border: 1px solid grey;
 }
 
+footer {
+  position: absolute;
+  bottom: 50px;
+  left: 50px;
+  color: grey;
+}
+
+.introtext {
+  text-align: center;
+}
+
+.instructions {
+  text-align: left;
+  padding-left: 30%;
+}
+
 .quoteBox {
-  /* font-size: 25px; */
   padding: 10px;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
@@ -89,35 +132,10 @@ button {
   font: grey;
 }
 
-.introtext {
-  text-align: center;
-}
-
 .resultimgs {
   height: 250px;
   border-radius: 10px;
   margin: 20px;
-}
-
-.solution {
-  color: lightgrey;
-  margin: 20px;
-}
-
-.shrikhand-regular {
-  font-family: "Shrikhand", serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.bad-script-regular {
-  font-family: "Bad Script", cursive;
-  font-weight: 400;
-  font-style: normal;
-}
-
-p {
-  margin: 0px;
 }
 
 .header-img {
@@ -127,23 +145,11 @@ p {
   height: 100px;
 }
 
-footer {
-  position: absolute;
-  bottom: 50px;
-  left: 50px;
-  color: grey;
-}
-
 .footer-right {
   position: absolute;
   bottom: 50px;
   right: 50px;
   color: #fcbf00;
-}
-
-.instructions {
-  text-align: left;
-  padding-left: 30%;
 }
 
 .footer-img {
@@ -155,10 +161,37 @@ footer {
   z-index: -1;
 }
 
-container {
-  z-index: 1;
-}
-
 .end-of-game-message {
   padding-top: 150px;
+}
+
+.answer-overview {
+  text-align: left;
+  padding-left: 10%;
+  margin: 10px auto;
+}
+.false {
+  color: darkred;
+  /* text-decoration: line-through; */
+}
+.correct {
+  color: darkgreen;
+}
+
+/* .solution {
+  color: lightgrey;
+  margin: 20px;
+} */
+
+/* Fonts */
+.shrikhand-regular {
+  font-family: "Shrikhand", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.bad-script-regular {
+  font-family: "Bad Script", cursive;
+  font-weight: 400;
+  font-style: normal;
 }

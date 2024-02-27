@@ -126,7 +126,13 @@ export default function Game() {
         options
       );
       const quotes = await result.json();
-      randomizeQuote(quotes.docs);
+      // show all the quotes -> const quotes = await result.json()
+      // filter those with a length > 20
+      const newQuotes = quotes.docs.filter(
+        (quote) => 20 < quote.dialog.length && quote.dialog.length < 100
+      );
+      // then randomize quotes out of this
+      randomizeQuote(newQuotes);
     } catch (error) {
       console.log(error);
     }

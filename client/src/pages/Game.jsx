@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-const API_TOKEN = import.meta.env.API_TOKEN;
+const API_TOKEN = import.meta.env.VITE_API_TOKEN;
 
 export default function Game() {
   const characters = [
@@ -126,6 +126,7 @@ export default function Game() {
         options
       );
       const quotes = await result.json();
+      console.log(quotes);
       // take all the quotes -> const quotes = await result.json()
       // filter those with a length > 20
       const newQuotes = quotes.docs.filter((quote) => quote.dialog.length > 20);

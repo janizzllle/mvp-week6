@@ -19,10 +19,12 @@ Ensure you have Node.js installed. Eurocapi is developed with Node.js and uses i
 
 - Access the MySQL interface in your terminal by running `mysql -u YOUR-MYSQL-USERNAME -p`
 - Add an `.env`file to the project folder of this repository containing the MySQL authentication information for MySQL user. For example:
-  DB_HOST=localhost
-  DB_USER=YOUR-MYSQL-USERNAME
-  DB_NAME=lotr_game
-  DB_PASS=YOUR-MYSQL-PASSWORD
+<ul>
+  <li>DB_HOST=localhost</li>
+ <li> DB_USER=YOUR-MYSQL-USERNAME</li>
+ <li> DB_NAME=lotr_game</li>
+  <li>DB_PASS=YOUR-MYSQL-PASSWORD</li>
+  </ul>
 
 - Run the following commands to your MySQL console and create a new database called lotr_game: `create database lotr_game`, then run `use lotr_game`.
 - Run 'npm run migrate' in your project directory. This will run the init.db file and initialize the database, meaning that this will create a table called 'games' in your database.

@@ -39,7 +39,10 @@ Ensure you have Node.js installed. Eurocapi is developed with Node.js and uses i
 ### APIs
 
 - This application works with the-one-to-rule-them-all API. In order to get the game to work, go to https://the-one-api.dev/ and create a free account (go to "sign up" and you will receive your bearer token). Copy this bearer into your `.env` file as follows:
+
+```bash
   VITE_API_TOKEN=YOURTOKEN
+```
 
 ## Database Design
 

@@ -6,6 +6,10 @@ It displays a lord of the rings-theme game, in which the player has to guess the
 
 ## Setup
 
+### Node.js
+
+Ensure you have Node.js installed. Eurocapi is developed with Node.js and uses it as the runtime environment. You can check your Node.js version by running node -v in your terminal. If you don't have Node.js installed, you can download it from the <a href="https://nodejs.org/en/download">official website</a>.
+
 ### Dependencies
 
 - Run `npm install`in your project directory. This will install server-related dependencies such as `express`.
@@ -13,14 +17,47 @@ It displays a lord of the rings-theme game, in which the player has to guess the
 
 ### Database Prep
 
-- Does the user have to acess mysql and import stuff into their .env file as well????????????????????????????????????????? no right?
-- Run 'npm run migrate' in your project directory. This will run my init.db file.
+- Access the MySQL interface in your terminal by running `mysql -u your-mysql-username -p`
+- Create a new database called lotr_game: `create database lotr_game`
+- Add an `.env`file to the project folder of this repository containing the
+- Run 'npm run migrate' in your project directory.
+  -------------------------------------> This will run the init.db file.
+
+- This app uses the-one-to-rule-them-all API. Go to https://the-one-api.dev/ and create a free account (go to "sign up" and you will receive your bearer token). Copy this bearer into your `.env` file.
+
+DB_HOST=localhost
+DB_USER=YOURUSERNAME
+DB_NAME=lotr_game
+DB_PASS=YOURPASSWORD
+
+- In your client folder create a second .env file and add the following:
+  API_TOKEN=YOURTOKEN
+
+- In a new terminal window, run `npm run migrate`in the project folder of this repository. This will create a tables 'games'.
 
 ### Development
 
 - Run `npm start`in your project directory to start the Express Server on port 5000.
 - In another terminal, do `cd client`and run `npm run dev`to start the client in development mode with hot reloading in port 5173.
 
-### List of endpoints
+### Database Design
+
+https://drawsql.app/teams/janizzllles-team/diagrams/copy-of-codeop-week-6-mvp-diagram
 
 ### Possible future features
+
+## Technologies Used
+
+- Express.js
+- MySQL
+- Postman
+- Node.js
+- The-one-to-rule-them-all API
+- Javascript
+- React
+- React Router
+- HTML 5
+- CSS
+- Bootstrap
+
+_This is a student project that was created at [CodeOp](http://codeop.tech), a full stack development bootcamp in Barcelona._

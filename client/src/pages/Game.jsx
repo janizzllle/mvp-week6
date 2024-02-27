@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import YouLose from "./YouLose";
+const API_TOKEN = import.meta.env.API_TOKEN;
 
 export default function Game() {
   const characters = [
@@ -92,7 +92,7 @@ export default function Game() {
     headers: {
       accept: "application/json",
       // Authorization Bearer:
-      Authorization: "Bearer Ss9eAfLed8eq6cMUKKf8",
+      Authorization: `Bearer ${API_TOKEN}`,
     },
   };
 
@@ -126,11 +126,15 @@ export default function Game() {
         options
       );
       const quotes = await result.json();
-      // show all the quotes -> const quotes = await result.json()
+      // take all the quotes -> const quotes = await result.json()
       // filter those with a length > 20
-      const newQuotes = quotes.docs.filter(
-        (quote) => 20 < quote.dialog.length && quote.dialog.length < 100
-      );
+      const newQuotes = quotes.docs.filter((quote) => quote.dialog.length > 20);
+
+      // if the filter returns an empty array (e.g. because for a given character there is no quote with more than 20 letters), push the first quote into the newQuotes array
+      if (newQuotes.length === 0) {
+        newQuotes.push(quotes.docs[0]);
+      }
+
       // then randomize quotes out of this
       randomizeQuote(newQuotes);
     } catch (error) {

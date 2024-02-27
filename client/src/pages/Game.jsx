@@ -18,14 +18,6 @@ export default function Game() {
       name: "Sam",
     },
     {
-      _id: "5cd99d4bde30eff6ebccfe7f",
-      name: "Pippin",
-    },
-    {
-      _id: "5cd99d4bde30eff6ebccfe7b",
-      name: "Merry",
-    },
-    {
       _id: "5cd99d4bde30eff6ebccfc38",
       name: "Bilbo",
     },
@@ -34,7 +26,7 @@ export default function Game() {
       name: "Aragorn",
     },
     {
-      _id: "5cd99d4bde30eff6ebccfe9f",
+      _id: "5cd99d4bde30eff6ebccfd81",
       name: "Legolas",
     },
     {
@@ -57,10 +49,7 @@ export default function Game() {
       _id: "5cd99d4bde30eff6ebccfe9e",
       name: "Gollum",
     },
-    {
-      _id: "5cd99d4bde30eff6ebccfea1",
-      name: "Radagast",
-    },
+
     {
       _id: "5cd99d4bde30eff6ebccfcc8",
       name: "Elrond",
@@ -104,7 +93,7 @@ export default function Game() {
 
   function randomizeQuote(quotes) {
     const item = quotes[Math.floor(Math.random() * quotes.length)];
-    console.log("randomizeQuote", { quotes, item });
+    // console.log("randomizeQuote", { quotes, item });
 
     setRandomQuote(item.dialog);
   }
@@ -126,10 +115,12 @@ export default function Game() {
         options
       );
       const quotes = await result.json();
-      console.log(quotes);
+
       // take all the quotes -> const quotes = await result.json()
       // filter those with a length > 20
-      const newQuotes = quotes.docs.filter((quote) => quote.dialog.length > 20);
+      const newQuotes = quotes.docs.filter(
+        (quote) => 100 > quote.dialog.length > 20
+      );
 
       // if the filter returns an empty array (e.g. because for a given character there is no quote with more than 20 letters), push the first quote into the newQuotes array
       if (newQuotes.length === 0) {

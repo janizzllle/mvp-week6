@@ -15,7 +15,7 @@
 }
 @media screen and (min-width: 850px) {
   .quoteBox {
-    font-size: 40px;
+    font-size: 30px;
     height: 300px;
     width: 1000px;
   }
@@ -29,7 +29,7 @@
 
 @media screen and (min-width: 1280px) {
   .quoteBox {
-    font-size: 40px;
+    font-size: 30px;
     height: 300px;
     width: 1000px;
   }

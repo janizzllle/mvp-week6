@@ -63,6 +63,7 @@ export default function Game() {
       name: "Sauron",
     },
   ];
+  // ************************************************************************************************
 
   const [randomQuote, setRandomQuote] = useState("");
   const [char_id, setChar_id] = useState();
@@ -74,6 +75,7 @@ export default function Game() {
     q4: 0,
     q5: 0,
   });
+  // ************************************************************************************************
 
   const options = {
     // apply a .get method
@@ -89,6 +91,12 @@ export default function Game() {
   useEffect(() => {
     getQuotes();
   }, [newItem]);
+
+  // ************************************************************************************************
+
+  useEffect(() => {
+    addAnswerToDB();
+  }, [count === 5]);
   // ************************************************************************************************
 
   function randomizeQuote(quotes) {
@@ -118,9 +126,7 @@ export default function Game() {
 
       // take all the quotes -> const quotes = await result.json()
       // filter those with a length > 20
-      const newQuotes = quotes.docs.filter(
-        (quote) => 100 > quote.dialog.length > 20
-      );
+      const newQuotes = quotes.docs.filter((quote) => quote.dialog.length > 20);
 
       // if the filter returns an empty array (e.g. because for a given character there is no quote with more than 20 letters), push the first quote into the newQuotes array
       if (newQuotes.length === 0) {
@@ -192,25 +198,25 @@ export default function Game() {
       updateResult(result);
     }
   }
+  // ************************************************************************************************
 
   function updateResult(result) {
     if (count === 0) {
       setNewItem((state) => ({ ...state, q1: result }));
-    }
-    if (count === 1) {
+      setCount((count) => count + 1);
+    } else if (count === 1) {
       setNewItem((state) => ({ ...state, q2: result }));
-    }
-    if (count === 2) {
+      setCount((count) => count + 1);
+    } else if (count === 2) {
       setNewItem((state) => ({ ...state, q3: result }));
-    }
-    if (count === 3) {
+      setCount((count) => count + 1);
+    } else if (count === 3) {
       setNewItem((state) => ({ ...state, q4: result }));
-    }
-    if (count === 4) {
+      setCount((count) => count + 1);
+    } else if (count === 4) {
       setNewItem((state) => ({ ...state, q5: result }));
-      addAnswerToDB();
+      setCount((count) => count + 1);
     }
-    setCount((count) => count + 1);
   }
 
   // ************************************************************************************************
@@ -228,7 +234,7 @@ export default function Game() {
       });
 
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
     } catch (err) {
       console.log(err.message);
     }
@@ -250,9 +256,8 @@ export default function Game() {
               {characterOptions.map((character) => (
                 <button
                   key={character._id}
-                  className={count < 5 ? "answerbutton" : "disabled"}
+                  className="answerbutton"
                   onClick={storeAnswer}
-                  disabled={count > 5 ? true : false}
                 >
                   {character.name}
                 </button>

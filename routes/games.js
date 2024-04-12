@@ -22,7 +22,7 @@ router.get("/", async function (req, res, next) {
 router.get("/:id", async function (req, res, next) {
   try {
     const id = req.params.id;
-    const response = await db(`SELECT * FROM games WHERE id = ${id};`);
+    const response = await db(`SELECT * FROM games WHERE game_id = ${id};`);
     res.send(response.data);
   } catch (err) {
     console.log(err.message);
@@ -33,7 +33,7 @@ router.get("/:id/sum", async function (req, res) {
   try {
     const id = req.params.id;
     const response = await db(
-      `select sum(q1 + q2 + q3 + q4 + q5) total from games where id = ${id};`
+      `select sum(q1 + q2 + q3 + q4 + q5) total from games where game_id = ${id};`
     );
     res.send(response.data);
   } catch (err) {

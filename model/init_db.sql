@@ -1,24 +1,26 @@
-
-SET foreign_key_checks = 0;
-DROP TABLE if exists game;
 DROP TABLE if exists user;
-SET foreign_key_checks = 1;
+DROP TABLE if exists user_info;
+DROP TABLE if exists quotes; 
+DROP TABLE if exists games;
 
+CREATE TABLE `user_info`(
+    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `username` VARCHAR(255) NOT NULL
+);
+CREATE TABLE `quotes`(
+    `question_id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `result_points` INT NOT NULL,
+    `quote_text` VARCHAR(255) NOT NULL,
+    `solution_text` VARCHAR(255) NOT NULL,
+    `player_answer` VARCHAR(255) NOT NULL,
+    `game_id` BIGINT UNSIGNED NOT NULL
+);
 CREATE TABLE `games`(
-    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `Q1` TINYINT NOT NULL,
-    `Q2` TINYINT NOT NULL,
-    `Q3` TINYINT NOT NULL,
-    `Q4` TINYINT NOT NULL,
-    `Q5` TINYINT NOT NULL,
-    `user_id` BIGINT NOT NULL,
+    `game_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `user_id` BIGINT UNSIGNED NOT NULL,
     `game_total` INT NOT NULL
 );
-CREATE TABLE `user`(
-    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `total_points` INT NOT NULL,
-    `user_name` VARCHAR(255) NOT NULL
-);
-
--- ALTER TABLE
---     `game` ADD CONSTRAINT `game_user_id_foreign` FOREIGN KEY(`user_id`) REFERENCES `user`(`id`);
+ALTER TABLE
+    `quotes` ADD CONSTRAINT `quotes_game_id_foreign` FOREIGN KEY(`game_id`) REFERENCES `games`(`game_id`) ON DELETE cascade;
+ALTER TABLE
+    `games` ADD CONSTRAINT `games_user_id_foreign` FOREIGN KEY(`user_id`) REFERENCES `user_info`(`id`) ON DELETE cascade;

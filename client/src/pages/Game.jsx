@@ -263,11 +263,11 @@ export default function Game() {
           quote_text: randomQuote, // quote_text: rightCharacter.XXXXXXXXsomething / see above in compareAnswer
           solution_text: rightCharacter.name, // solution_text: rightCharacter.name / see above in compareAnswer
           player_answer: answer, // player_answer: event.target.textContent / see above in storeAnswer
-          game_id: 0, // game_id: should come from the login -> user token (?)
+          game_id: 1, // game_id: should come from the login -> user token (?)
         }),
       });
       const data = await response.json();
-      // console.log(data);
+      console.log(data);
     } catch (err) {
       console.log(err.message);
     }

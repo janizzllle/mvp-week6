@@ -70,12 +70,15 @@ export default function Game() {
   const [count, setCount] = useState(1);
   const [rightCharacter, setRightCharacter] = useState(""); // new
   const [answer, setAnswer] = useState(""); // new
+  const [result, setResult] = useState(0); // new
   const [newItem, setNewItem] = useState({
-    q1: 0,
-    q2: 0,
-    q3: 0,
-    q4: 0,
-    q5: 0,
+    // question_id: should be created automatically so I don't have to send it in here
+    quote_id: count - 1, // quote_id: should come from the useState count on Game.jsx
+    points: result, // points: we can insert a 0 and then update it after the answer has been compared to the solution
+    quote_text: randomQuote, // quote_text: rightCharacter.XXXXXXXXsomething / see above in compareAnswer
+    solution_text: rightCharacter.name, // solution_text: rightCharacter.name / see above in compareAnswer
+    player_answer: answer, // player_answer: event.target.textContent / see above in storeAnswer
+    game_id: 1, // game_id: should come from the login -> user token (?)
   });
   // ************************************************************************************************
 
@@ -206,50 +209,26 @@ export default function Game() {
   // ************************************************************************************************
 
   function updateResult(result) {
-    if (count === 0) {
-      setNewItem((state) => ({ ...state, q1: result }));
-      setCount((count) => count + 1);
-    } else if (count === 1) {
-      setNewItem((state) => ({ ...state, q2: result }));
-      setCount((count) => count + 1);
-    } else if (count === 2) {
-      setNewItem((state) => ({ ...state, q3: result }));
-      setCount((count) => count + 1);
-    } else if (count === 3) {
-      setNewItem((state) => ({ ...state, q4: result }));
-      setCount((count) => count + 1);
-    } else if (count === 4) {
-      setNewItem((state) => ({ ...state, q5: result }));
-      setCount((count) => count + 1);
-    }
+    setNewItem((state) => ({ ...state, result: result }));
+    setResult(result);
+    setCount((count) => count + 1);
   }
 
   // ************************************************************************************************
-  /*
-  const addAnswerToDB = async (result) => {
-    try {
-      // the fetch(`/api/games/` means that
-      // we are sending the {method: "POST"...}-stuff
-      // to the route /api/games/
-      const response = await fetch(`/api/games/`, { 
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newItem),
-      });
-
-      const data = await response.json();
-      // console.log(data);
-    } catch (err) {
-      console.log(err.message);
-    }
-  }; */
 
   // After a player has chosen an answer
   // a new entry in the questions table is created (.POST)
 
   const addAnswerToDB = async () => {
+    console.log({
+      // question_id: should be created automatically so I don't have to send it in here
+      quote_id: count - 1, // quote_id: should come from the useState count on Game.jsx
+      points: result, // points: we can insert a 0 and then update it after the answer has been compared to the solution
+      quote_text: randomQuote, // quote_text: rightCharacter.XXXXXXXXsomething / see above in compareAnswer
+      solution_text: rightCharacter.name, // solution_text: rightCharacter.name / see above in compareAnswer
+      player_answer: answer, // player_answer: event.target.textContent / see above in storeAnswer
+      game_id: 1, // game_id: should come from the login -> user token (?)
+    });
     try {
       const response = await fetch(`/api/games/`, {
         method: "POST",
@@ -259,7 +238,7 @@ export default function Game() {
         body: JSON.stringify({
           // question_id: should be created automatically so I don't have to send it in here
           quote_id: count - 1, // quote_id: should come from the useState count on Game.jsx
-          points: 0, // points: we can insert a 0 and then update it after the answer has been compared to the solution
+          points: result, // points: we can insert a 0 and then update it after the answer has been compared to the solution
           quote_text: randomQuote, // quote_text: rightCharacter.XXXXXXXXsomething / see above in compareAnswer
           solution_text: rightCharacter.name, // solution_text: rightCharacter.name / see above in compareAnswer
           player_answer: answer, // player_answer: event.target.textContent / see above in storeAnswer
@@ -272,6 +251,8 @@ export default function Game() {
       console.log(err.message);
     }
   };
+
+  console.log(result);
   // ************************************************************************************************
 
   return (

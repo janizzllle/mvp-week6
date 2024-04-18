@@ -44,7 +44,7 @@ router.get("/:id/total", async function (req, res) {
 });
 
 // Inserting the amount of points I made for a question after having chosen an answer
-router.post("/", async function (req, res, next) {
+router.post("/", async function (req, res) {
   try {
     const {
       quote_id,
@@ -105,50 +105,6 @@ router.get("/:game_id/:quote_id/solution_text", async (req, res) => {
     res.send(response.data);
   } catch (err) {
     console.log(err.message);
-  }
-});
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-// Get the amount of points for a specific question
-// q stands for the number of the question
-// Careful: Doesn't work anymore using the adjusted database!!!!
-router.get("/:id/:q", async function (req, res) {
-  try {
-    const { id, q } = req.params;
-    const response = await db(`select q${q}  from games where id = ${id};`);
-    res.send(response.data);
-  } catch (err) {
-    console.timeLog(err.message);
-  }
-});
-
-// the "/" below means, that I access my back-end at "/" (which btw stand for "/api/games" as defined in app.js in line 17),
-// Careful: Doesn't work anymore using the adjusted database!!!!
-router.post("/", async function (req, res, next) {
-  try {
-    const { q1, q2, q3, q4, q5 } = req.body; // VERY IMPORTANT: req.body is what gets sent from my front-end via (method: "x" ....) to my backend!
-    // Postman therefor only simulates my front end sending data to my backend
-    // meaning that if I don't have a front-end fetch to the backend yet, I can work with postman
-    const game_total = 100;
-
-    await db(
-      `INSERT INTO games (q1, q2, q3, q4, q5, user_id, game_total) values ("${q1}", "${q2}","${q3}", "${q4}","${q5}", 1, ${game_total});`
-    );
-    const results = await db("SELECT * FROM games;");
-    res.send(results.data);
-  } catch (err) {
-    res.status(500).send(err.message);
   }
 });
 

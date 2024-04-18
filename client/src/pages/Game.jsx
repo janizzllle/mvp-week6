@@ -67,7 +67,9 @@ export default function Game() {
 
   const [randomQuote, setRandomQuote] = useState("");
   const [char_id, setChar_id] = useState();
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
+  const [rightCharacter, setRightCharacter] = useState(""); // new
+  const [answer, setAnswer] = useState(""); // new
   const [newItem, setNewItem] = useState({
     q1: 0,
     q2: 0,
@@ -96,7 +98,7 @@ export default function Game() {
 
   useEffect(() => {
     addAnswerToDB();
-  }, [count === 5]);
+  }, [count]);
   // ************************************************************************************************
 
   function randomizeQuote(quotes) {
@@ -164,6 +166,7 @@ export default function Game() {
     const rightCharacter = characters.find(
       (character) => character._id === char_id
     );
+    setRightCharacter(rightCharacter);
     const restOfCharacters = characters.filter(
       (character) => character._id !== char_id
     );
@@ -180,6 +183,7 @@ export default function Game() {
 
   function storeAnswer(event) {
     const answer = event.target.textContent;
+    setAnswer(answer);
     compareToSolution(answer);
   }
   // ************************************************************************************************
@@ -188,6 +192,7 @@ export default function Game() {
     const rightCharacter = characters.find(
       (character) => character._id === char_id
     );
+    console.log(rightCharacter);
     if (answer === rightCharacter.name) {
       const result = 1;
       console.log(result);
@@ -220,12 +225,13 @@ export default function Game() {
   }
 
   // ************************************************************************************************
+  /*
   const addAnswerToDB = async (result) => {
     try {
       // the fetch(`/api/games/` means that
       // we are sending the {method: "POST"...}-stuff
       // to the route /api/games/
-      const response = await fetch(`/api/games/`, {
+      const response = await fetch(`/api/games/`, { 
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -233,6 +239,33 @@ export default function Game() {
         body: JSON.stringify(newItem),
       });
 
+      const data = await response.json();
+      // console.log(data);
+    } catch (err) {
+      console.log(err.message);
+    }
+  }; */
+
+  // After a player has chosen an answer
+  // a new entry in the questions table is created (.POST)
+
+  const addAnswerToDB = async () => {
+    try {
+      const response = await fetch(`/api/games/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          // question_id: should be created automatically so I don't have to send it in here
+          quote_id: count - 1, // quote_id: should come from the useState count on Game.jsx
+          points: 0, // points: we can insert a 0 and then update it after the answer has been compared to the solution
+          quote_text: randomQuote, // quote_text: rightCharacter.XXXXXXXXsomething / see above in compareAnswer
+          solution_text: rightCharacter.name, // solution_text: rightCharacter.name / see above in compareAnswer
+          player_answer: answer, // player_answer: event.target.textContent / see above in storeAnswer
+          game_id: 0, // game_id: should come from the login -> user token (?)
+        }),
+      });
       const data = await response.json();
       // console.log(data);
     } catch (err) {

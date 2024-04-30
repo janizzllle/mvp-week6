@@ -98,10 +98,11 @@ export default function Game() {
   }, [newItem]);
 
   // ************************************************************************************************
-
+  /*
   useEffect(() => {
     addAnswerToDB();
   }, [count]);
+  */
   // ************************************************************************************************
 
   function randomizeQuote(quotes) {
@@ -212,6 +213,7 @@ export default function Game() {
     setNewItem((state) => ({ ...state, result: result }));
     setResult(result);
     setCount((count) => count + 1);
+    addAnswerToDB();
   }
 
   // ************************************************************************************************
